@@ -9,16 +9,16 @@ script = ExtResource("1_jivpw")
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1153.0
+offset_bottom = 644.0
 script = ExtResource("2_ex22p")
 
 [node name="Prompt_Label" type="RichTextLabel" parent="Control"]
 layout_mode = 2
-offset_left = 463.0
-offset_top = 305.0
-offset_right = 686.0
-offset_bottom = 353.0
+offset_left = 31.0
+offset_top = 300.0
+offset_right = 1106.0
+offset_bottom = 348.0
 bbcode_enabled = true
 text = "[center]text[/center]"
 fit_content = true
