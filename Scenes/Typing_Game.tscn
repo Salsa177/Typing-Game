@@ -13,13 +13,41 @@ offset_right = 1153.0
 offset_bottom = 644.0
 script = ExtResource("2_ex22p")
 
-[node name="Prompt_Label" type="RichTextLabel" parent="Control"]
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_left = -18.0
+offset_top = -14.0
+offset_right = 1172.0
+offset_bottom = 667.0
+color = Color(0.10748, 0.10748, 0.10748, 1)
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 294.0
+offset_right = 1085.0
+offset_bottom = 386.0
+ratio = 1.75
+stretch_mode = 3
+
+[node name="Prompt_Label" type="RichTextLabel" parent="Control/AspectRatioContainer"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
-offset_left = 31.0
-offset_top = 300.0
-offset_right = 1106.0
-offset_bottom = 348.0
+theme_override_colors/default_color = Color(0.396889, 0.396889, 0.396889, 1)
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
 bbcode_enabled = true
-text = "[center]text[/center]"
+text = "[b] p[color=red]r[color=white]ompt [/b]"
+fit_content = true
+scroll_active = false
+
+[node name="Typing_Label" type="RichTextLabel" parent="Control/AspectRatioContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
+bbcode_enabled = true
+text = "[b] typing [/b]"
 fit_content = true
 scroll_active = false
