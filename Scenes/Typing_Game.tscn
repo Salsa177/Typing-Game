@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpcsp0eg774g2"]
+[gd_scene load_steps=7 format=3 uid="uid://cpcsp0eg774g2"]
 
 [ext_resource type="Script" uid="uid://dowaeeo7djgio" path="res://Scripts/typing_game.gd" id="1_jivpw"]
 [ext_resource type="Script" uid="uid://dy6ltvwp7mpxb" path="res://Scripts/world_manage.gd" id="2_ex22p"]
+[ext_resource type="Script" uid="uid://u0nigmhn0nv3" path="res://Scripts/line_edit.gd" id="3_6ou7y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ex22p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ou7y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kgarw"]
 
 [node name="Typing game" type="Node"]
 script = ExtResource("1_jivpw")
@@ -38,7 +45,7 @@ theme_override_colors/default_color = Color(0.396889, 0.396889, 0.396889, 1)
 theme_override_font_sizes/normal_font_size = 25
 theme_override_font_sizes/bold_font_size = 25
 bbcode_enabled = true
-text = "[b] p[color=red]r[color=white]ompt [/b]"
+text = "[color=#1b1b1b]i love[color=orange]l"
 fit_content = true
 scroll_active = false
 
@@ -48,6 +55,28 @@ layout_mode = 2
 theme_override_font_sizes/normal_font_size = 25
 theme_override_font_sizes/bold_font_size = 25
 bbcode_enabled = true
-text = "[b] typing [/b]"
+text = "[b] [color=red] typing [/b]"
 fit_content = true
 scroll_active = false
+
+[node name="LineEdit" type="LineEdit" parent="Control/AspectRatioContainer/Typing_Label"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 1029.0
+offset_bottom = 36.0
+theme_override_colors/selection_color = Color(0, 0, 0, 1)
+theme_override_colors/caret_color = Color(0.94155, 0.482309, 0.51062, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 0)
+theme_override_colors/font_uneditable_color = Color(0, 0, 0, 0)
+theme_override_colors/font_color = Color(0.105882, 0.105882, 0.105882, 0)
+theme_override_constants/caret_width = 3
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ex22p")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_6ou7y")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kgarw")
+editable = false
+selecting_enabled = false
+caret_force_displayed = true
+script = ExtResource("3_6ou7y")
