@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Typing Game"
-run/main_scene="uid://cpcsp0eg774g2"
+run/main_scene="uid://c2cq10uvl6tvi"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

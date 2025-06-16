@@ -28,8 +28,7 @@ var changed_words: PackedStringArray = []
 func _ready() -> void:
 	current_index = 0
 	get_prompt()
-	print(current_prompt)
-	print(current_index)
+	print("\n \n \n \n ", current_prompt)
 
 
 func _process(delta: float) -> void:
@@ -131,8 +130,8 @@ func timing_typed_words(delta: float) ->void:
 	#print(current_index)
 	#print(timer_index)
 	#print(total_timer)
-	print(wpm_stored_times)
-	print(wpm_word_timer)
+	#print(wpm_stored_times)
+	#print(wpm_word_timer)
 
 
 func set_type_label(prompt: PackedStringArray) -> void:

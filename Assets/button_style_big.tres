@@ -1,0 +1,42 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://ducpp7i3myqe7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hckgo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c4tk2"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmbjf"]
+bg_color = Color(0.787759, 0.787759, 0.787759, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7rmo"]
+bg_color = Color(0.621524, 0.621524, 0.621524, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(5, 5)
+
+[resource]
+Button/colors/font_color = Color(0.162066, 0.162066, 0.162066, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 0.5)
+Button/colors/font_focus_color = Color(0.215686, 0.215686, 0.215686, 1)
+Button/colors/font_hover_color = Color(0.215686, 0.215686, 0.215686, 1)
+Button/colors/font_pressed_color = Color(0.0999859, 0.099986, 0.099986, 1)
+Button/font_sizes/font_size = 29
+Button/styles/focus = SubResource("StyleBoxEmpty_hckgo")
+Button/styles/hover = SubResource("StyleBoxFlat_c4tk2")
+Button/styles/normal = SubResource("StyleBoxFlat_rmbjf")
+Button/styles/pressed = SubResource("StyleBoxFlat_b7rmo")
