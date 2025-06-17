@@ -11,9 +11,7 @@ var key_typed: String
 var wpm_word_timer: float = 0
 var wpm_stored_times: Array = []
 var wpm_average: float
-var wpm_PB: float
 var accuracy: float = 0.0
-var accuracy_PB: float
 var timer_index: int = 0
 var max_time: float = 90.0
 var total_timer: float = 0
@@ -264,9 +262,6 @@ func wpm_calculator(wpm_times_array: Array) -> float:
 	
 	wpm_average = 0.0
 	wpm_average = word_count / (final_time / 60)
-	
-	if wpm_average > wpm_PB:
-		wpm_PB = wpm_average
 		
 	return wpm_average
 
@@ -295,16 +290,13 @@ func accuracy_calculator(prompt: PackedStringArray) -> float:
 	
 	if accuracy > 100:
 		accuracy -= 10
-	
-	if accuracy > accuracy_PB:
-		accuracy_PB = accuracy
+
 	
 	return accuracy
 
 
 func not_in_control() -> void:
-	typing_label.text = "WPM: " + str(snapped(wpm_average, 0.01)) + "\n ACC:  " + str(int(accuracy)) + "%" + "
-					\n \n WPM - Personal Best: " + str(snapped(wpm_PB, 0.01)) + " \n ACC - Personal Best: " + str(int(accuracy_PB)) + "%"
+	typing_label.text = "WPM: " + str(snapped(wpm_average, 0.01)) + "\n ACC:  " + str(int(accuracy)) + "%"
 	underscore_label.visible = false
 	go_back_menu_button.visible = true
 
