@@ -1,11 +1,11 @@
 extends Node
 
+@onready var typing_label: RichTextLabel = %Typing_Label
+@onready var underscore_label: RichTextLabel = %Underscore_Label
+@onready var go_back_menu_button: Button = %GoBackMenu
 
 var current_prompt: PackedStringArray
-@onready var typing_label: RichTextLabel = %Typing_Label
-@onready var line_edit: LineEdit = %LineEdit
 var current_index: int = 0
-var char_index: int 
 var player_input_string: String
 var key_typed: String
 var wpm_word_timer: float = 0
@@ -14,21 +14,22 @@ var wpm_average: float
 var wpm_PB: float
 var accuracy: float = 0.0
 var accuracy_PB: float
-var backspace_buffer: int = 0
 var timer_index: int = 0
-var max_time: float = 1000.0
+var max_time: float = 90.0
 var total_timer: float = 0
 var can_control: bool = true
 var changed_prompt: PackedStringArray = []
 var changed_words: PackedStringArray = []
-
-
+var label_text: String
+var current_word: String
 
 
 func _ready() -> void:
 	current_index = 0
 	get_prompt()
 	print("\n \n \n \n ", current_prompt)
+	go_back_menu_button.visible = false
+	go_back_menu_button.pressed.connect(back_to_menu)
 
 
 func _process(delta: float) -> void:
@@ -40,7 +41,7 @@ func _process(delta: float) -> void:
 
 
 func get_prompt() -> void:
-	var prompt: PackedStringArray = TDF.parent_array.get(TDF.RNG_prompt())
+	var prompt: PackedStringArray = TDF.difficulty_array.get(TDF.RNG_prompt(TDF.diff))
 	var index: int = 0
 	
 	for i in prompt:
@@ -58,6 +59,8 @@ func update_label() -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	var PIA: PackedStringArray = player_input_string.split(" ", 0)
+	
 	if can_control == false:
 		return
 	
@@ -66,8 +69,17 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		if Input.is_action_pressed("Backspace") and not player_input_string.is_empty():
 			player_input_string = player_input_string.left(player_input_string.length() - 1)
 		else:
-			key_typed = PackedByteArray([typed_event.unicode]).get_string_from_utf8()
-			player_input_string += key_typed
+			if ((PIA.is_empty() == true) and (Input.is_action_just_pressed("Spacebar") == false)):
+				key_typed = PackedByteArray([typed_event.unicode]).get_string_from_utf8()
+				player_input_string += key_typed
+			elif ((Input.is_action_just_pressed("Spacebar") == true) and ((
+				player_input_string.right(1) == " ") == false) and (PIA.is_empty() == false)) and (
+				PIA.get(current_index).length() >= current_word.length()):
+					key_typed = PackedByteArray([typed_event.unicode]).get_string_from_utf8()
+					player_input_string += key_typed
+			elif ((PIA.is_empty() == false) and (Input.is_action_just_pressed("Spacebar") == false)):
+				key_typed = PackedByteArray([typed_event.unicode]).get_string_from_utf8()
+				player_input_string += key_typed
 		#print("input: ", player_input_string)
 
 
@@ -89,16 +101,20 @@ func timing_typed_words(delta: float) ->void:
 	elif PIA.size() < current_index:
 		current_index = PIA.size()
 	elif PIA.size() == current_index:
-		if (Input.is_action_pressed("Backspace") and (
+		if Input.is_action_just_pressed("Backspace") and (
+			current_index == 1) and (
+			player_input_string.length() >= PIA.get(current_index - 1).length()):
+				current_index = PIA.size() - 1
+		elif (Input.is_action_just_pressed("Backspace") and (
 			current_index != 0) and (
 			player_input_string.length() > PIA.get(current_index - 1).length())):
 				current_index = PIA.size() - 1
-		elif Input.is_action_pressed("Backspace") and (
+		elif Input.is_action_just_pressed("Backspace") and (
 			PIA.is_empty() == false) and (
 				
 			current_index != PIA.size() and (PIA.get(current_index).is_empty() == false)) and (
 				
-			len(PIA.get(current_index)) < len(changed_prompt.get(current_index))) and (
+			len(PIA.get(current_index)) <= len(changed_prompt.get(current_index))) and (
 			len(PIA.get(current_index)) > 1):
 				current_index = PIA.size()
 	elif Input.is_action_just_pressed("Spacebar") and (
@@ -139,9 +155,8 @@ func set_type_label(prompt: PackedStringArray) -> void:
 	var prompt_string: String = " ".join(prompt)
 	var word_length: int
 	
+	current_word = prompt_string.split(" ", 0).get(current_index).erase(0, 17)
 	
-	if char_index == null:
-		char_index = 0
 	
 	if PIA.size() <= 0:
 		changed_prompt = prompt_string.split(" ", 0)
@@ -150,11 +165,10 @@ func set_type_label(prompt: PackedStringArray) -> void:
 	if (PIA.is_empty() == false) and (current_index != PIA.size()):
 		changed_prompt = prompt_string.split(" ", 0)
 		
-		
 		if PIA.get(current_index).is_empty() == false:
 			word_length = len(PIA.get(current_index))
 		
-		if len(PIA.get(current_index)) > len(prompt.get(current_index)):
+		if len(changed_prompt.get(current_index)) > len(prompt.get(current_index)):
 			changed_prompt.set(current_index, PIA.get(current_index))
 		else:
 			if PIA.get(current_index).is_empty() == false:
@@ -181,11 +195,9 @@ func set_type_label(prompt: PackedStringArray) -> void:
 		# makes sure that colours and different letters stay when changing words
 		# here they are being added/deleted from an array to store them
 		
-		
-
 		if ((changed_words.size() - 1) < current_index):
 			changed_words.append(changed_prompt.get(current_index).to_lower())
-		elif ((changed_words.size() == current_index + 1)):
+		if ((changed_words.size() == current_index + 1)):
 			if changed_words.get(current_index) != changed_prompt.get(current_index):
 				changed_words.set(current_index, changed_prompt.get(current_index).to_lower())
 		elif current_index < changed_words.size():
@@ -204,9 +216,10 @@ func set_type_label(prompt: PackedStringArray) -> void:
 					changed_prompt.set(i, changed_words.get(i).to_lower())
 		
 	
-	typing_label.text = " ".join(changed_prompt).to_lower()
-	line_edit.text =  player_input_string.to_lower()
+	#sets the typing label
 	
+	typing_label.text = " ".join(changed_prompt).to_lower()
+	underscore_label.text = "[color=#1b1b1b]" + (player_input_string).to_lower() + "[color=red]" + "_"
 	
 	if (current_index >= prompt_string.split(" ", 0).size() - 1) and (
 		PIA.size() - 1 == current_index) and (current_index != prompt_string.split(" ", 0).size()):
@@ -222,19 +235,31 @@ func set_type_label(prompt: PackedStringArray) -> void:
 				wpm_stored_times.append(wpm_word_timer)
 				wpm_word_timer = 0
 				can_control = false
+	if (PIA.is_empty() == false):
+		if ((prompt_string.split(" ", 0).size() == 1) and (
+			player_input_string.length() >= prompt_string.erase(0, 17).length())):
+				timer_index = current_index
+				wpm_stored_times.append(wpm_word_timer)
+				wpm_word_timer = 0
+				can_control = false
 	
 	#print(changed_prompt.get(current_index).erase(0, 11))
 	#print(changed_prompt.get(current_index).erase(0, 13))
 	#print(prompt_string.split(" ", 0).get(current_index).erase(0, 17))
+	print(wpm_stored_times)
 
 
 func wpm_calculator(wpm_times_array: Array) -> float:
 	var word_count: int = wpm_times_array.size()
 	var final_time: float = 0.0
 	
-	for i in wpm_times_array.size() - 1:
-		final_time += wpm_times_array.get(i)
-	
+
+	if word_count == 1:
+		for i in wpm_times_array.size():
+			final_time += wpm_times_array.get(i)
+	else:
+		for i in wpm_times_array.size() - 1:
+			final_time += wpm_times_array.get(i)
 	
 	
 	wpm_average = 0.0
@@ -265,7 +290,6 @@ func accuracy_calculator(prompt: PackedStringArray) -> float:
 	original_prompt_string = " ".join(no_colours_OG_prompt)
 	
 	
-	
 	accuracy = 0.0
 	accuracy = original_prompt_string.similarity(changed_prompt_string) * 100
 	
@@ -278,4 +302,9 @@ func accuracy_calculator(prompt: PackedStringArray) -> float:
 func not_in_control() -> void:
 	typing_label.text = "WPM: " + str(snapped(wpm_average, 0.01)) + "\n ACC:  " + str(int(accuracy)) + "%" + "
 					\n \n WPM - Personal Best: " + str(snapped(wpm_PB, 0.01)) + " \n ACC - Personal Best: " + str(int(accuracy_PB)) + "%"
-	line_edit.visible = false
+	underscore_label.visible = false
+	go_back_menu_button.visible = true
+
+
+func back_to_menu() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Main_Menu.tscn")

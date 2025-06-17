@@ -1,0 +1,42 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://xg7p0lwad0ry"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hckgo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c4tk2"]
+bg_color = Color(1, 0.627549, 0.574789, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmbjf"]
+bg_color = Color(0.825364, 0.295397, 7.70092e-07, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7rmo"]
+bg_color = Color(0.355933, 0.126004, 0.133841, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(5, 5)
+
+[resource]
+Button/colors/font_color = Color(0.860369, 0.860369, 0.860369, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 0.5)
+Button/colors/font_focus_color = Color(0.858824, 0.858824, 0.858824, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(0.762403, 0.762404, 0.762403, 1)
+Button/font_sizes/font_size = 29
+Button/styles/focus = SubResource("StyleBoxEmpty_hckgo")
+Button/styles/hover = SubResource("StyleBoxFlat_c4tk2")
+Button/styles/normal = SubResource("StyleBoxFlat_rmbjf")
+Button/styles/pressed = SubResource("StyleBoxFlat_b7rmo")

@@ -1,21 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://7iqqf4kny5wo"]
+[gd_scene load_steps=7 format=3 uid="uid://gmogqvxa4sv"]
 
 [ext_resource type="Script" uid="uid://clwvkj710sp0g" path="res://Scripts/main_menu.gd" id="1_dnfjo"]
 [ext_resource type="Theme" uid="uid://ducpp7i3myqe7" path="res://Assets/button_style_big.tres" id="2_257up"]
 [ext_resource type="Theme" uid="uid://jf3dqc7k67gq" path="res://Assets/button_style_small.tres" id="3_3mro0"]
 [ext_resource type="Texture2D" uid="uid://wdxh1wfs04pq" path="res://Assets/handpos.png" id="4_tu7k8"]
-[ext_resource type="Theme" uid="uid://xg7p0lwad0ry" path="res://Assets/button_red_big.tres" id="5_anlgx"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_anlgx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7rmo"]
 bg_color = Color(0, 0, 0, 0.352941)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
-expand_margin_left = 33.0
-expand_margin_top = 19.0
-expand_margin_right = 33.0
-expand_margin_bottom = 28.0
+expand_margin_left = 30.0
+expand_margin_top = 10.0
+expand_margin_right = 30.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00u4r"]
 bg_color = Color(0, 0, 0, 0.352941)
@@ -54,6 +52,7 @@ color = Color(0.10748, 0.10748, 0.10748, 1)
 
 [node name="MainMenu" type="CenterContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -61,75 +60,60 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -206.0
-offset_top = -237.5
+offset_top = -85.0
 offset_right = 206.0
-offset_bottom = 237.5
+offset_bottom = 85.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="MainMenu"]
+[node name="Title" type="Label" parent="MainMenu"]
+custom_minimum_size = Vector2(0, 475)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_anlgx")
-
-[node name="VBox-MAIN" type="VBoxContainer" parent="MainMenu/PanelContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Title" type="Label" parent="MainMenu/PanelContainer/VBox-MAIN"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
 size_flags_stretch_ratio = 0.0
 theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_b7rmo")
 text = "HSC SOFT
 TYPING TUTOR"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="MainMenu/PanelContainer/VBox-MAIN"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
 layout_mode = 2
-theme_override_constants/separation = 22
-
-[node name="VBox-SUB" type="VBoxContainer" parent="MainMenu/PanelContainer/VBox-MAIN"]
-layout_mode = 2
-size_flags_horizontal = 4
 theme_override_constants/separation = 10
 
-[node name="Start Game" type="Button" parent="MainMenu/PanelContainer/VBox-MAIN/VBox-SUB"]
+[node name="Start Game" type="Button" parent="MainMenu/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 80)
+custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 theme = ExtResource("2_257up")
-theme_override_font_sizes/font_size = 40
 text = "START"
 
-[node name="Exit" type="Button" parent="MainMenu/PanelContainer/VBox-MAIN/VBox-SUB"]
+[node name="Exit" type="Button" parent="MainMenu/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(130, 80)
+custom_minimum_size = Vector2(110, 50)
 layout_mode = 2
 theme = ExtResource("2_257up")
-theme_override_font_sizes/font_size = 40
 text = "EXIT"
 
-[node name="Bottom Row" type="HBoxContainer" parent="MainMenu/PanelContainer/VBox-MAIN/VBox-SUB"]
+[node name="Bottom Row" type="HBoxContainer" parent="MainMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 7
 
-[node name="Website" type="Button" parent="MainMenu/PanelContainer/VBox-MAIN/VBox-SUB/Bottom Row"]
+[node name="Website" type="Button" parent="MainMenu/VBoxContainer/Bottom Row"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(70, 50)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 theme = ExtResource("2_257up")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 21
 text = "SITE"
 
-[node name="HowToPlay" type="Button" parent="MainMenu/PanelContainer/VBox-MAIN/VBox-SUB/Bottom Row"]
+[node name="HowToPlay" type="Button" parent="MainMenu/VBoxContainer/Bottom Row"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("5_anlgx")
-theme_override_font_sizes/font_size = 35
+size_flags_horizontal = 10
+theme = ExtResource("2_257up")
+theme_override_font_sizes/font_size = 29
 text = "?"
 
 [node name="HowToMenu" type="CenterContainer" parent="."]
@@ -271,7 +255,6 @@ autowrap_mode = 3
 
 [node name="DifficultySelect" type="CenterContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -284,7 +267,6 @@ offset_right = 300.0
 offset_bottom = 231.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("5_anlgx")
 
 [node name="PanelContainer" type="PanelContainer" parent="DifficultySelect"]
 layout_mode = 2
@@ -352,13 +334,11 @@ size_flags_vertical = 0
 theme = ExtResource("2_257up")
 text = "Master Class"
 
+[node name="CloseDifficulty" type="Button" parent="DifficultySelect/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Go Back"
+
 [node name="HSeparator2" type="HSeparator" parent="DifficultySelect/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-
-[node name="CloseDifficulty" type="Button" parent="DifficultySelect/PanelContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(120, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Go Back"
