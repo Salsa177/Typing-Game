@@ -293,6 +293,9 @@ func accuracy_calculator(prompt: PackedStringArray) -> float:
 	accuracy = 0.0
 	accuracy = original_prompt_string.similarity(changed_prompt_string) * 100
 	
+	if accuracy > 100:
+		accuracy -= 10
+	
 	if accuracy > accuracy_PB:
 		accuracy_PB = accuracy
 	
