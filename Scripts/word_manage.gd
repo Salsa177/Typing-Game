@@ -18,7 +18,6 @@ var total_timer: float = 0
 var can_control: bool = true
 var changed_prompt: PackedStringArray = []
 var changed_words: PackedStringArray = []
-var label_text: String
 var current_word: String
 
 
