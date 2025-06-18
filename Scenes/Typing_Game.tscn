@@ -30,9 +30,9 @@ color = Color(0.10748, 0.10748, 0.10748, 1)
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control"]
 layout_mode = 0
 offset_left = 56.0
-offset_top = 294.0
+offset_top = 46.0
 offset_right = 1085.0
-offset_bottom = 386.0
+offset_bottom = 634.0
 ratio = 1.75
 stretch_mode = 3
 

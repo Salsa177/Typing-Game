@@ -80,7 +80,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		#print("input: ", player_input_string)
 
 
-func timing_typed_words(delta: float) ->void:
+func timing_typed_words(delta: float) -> void:
 	var PIA: PackedStringArray = player_input_string.split(" ", 0)
 	
 	if can_control == true:

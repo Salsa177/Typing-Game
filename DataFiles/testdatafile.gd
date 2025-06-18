@@ -50,7 +50,7 @@ func RNG_prompt(difficulty: int) -> int:
 		difficulty_array = intermediate_array
 	elif difficulty == 3:
 		difficulty_array = advanced_array
-	elif difficulty == 3:
+	elif difficulty == 4:
 		difficulty_array = professional_array
 	elif difficulty == 5:
 		difficulty_array = master_class_array
