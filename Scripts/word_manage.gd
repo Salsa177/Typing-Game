@@ -23,34 +23,38 @@ var current_word: String
 
 func _ready() -> void:
 	current_index = 0
-	get_prompt()
+	current_prompt = get_prompt()
 	print("\n \n \n \n ", current_prompt)
 	go_back_menu_button.visible = false
 	go_back_menu_button.pressed.connect(back_to_menu)
 
 
 func _process(delta: float) -> void:
-	#print(test.split(" ", false))
-	
 	timing_typed_words(delta)
-	update_label()
-	#next_prev_word()
+	update_label(current_prompt)
+	#print("CU: ", current_prompt)
+	#print("")
+	#print("CH: ", changed_prompt)
 
 
-func get_prompt() -> void:
+func get_prompt() -> PackedStringArray:
 	var prompt: PackedStringArray = TDF.difficulty_array.get(TDF.RNG_prompt(TDF.diff))
 	var index: int = 0
 	
-	for i in prompt:
-		prompt.set(index, "[color=dark_gray]" + prompt.get(index))
-		index += 1
-		
-	current_prompt = prompt
+	
+	for i: int in (prompt.size()):
+		if prompt.get(i).left(17) != "[color=dark_gray]":
+			prompt.set(i, "[color=dark_gray]" + prompt.get(i))
+	
+	#print(prompt)
+	return prompt
 
 
-func update_label() -> void:
+func update_label(prompt: PackedStringArray) -> void:
+	var prompt_string: String = " ".join(prompt)
+	
 	if can_control == false:
-		not_in_control()
+		not_in_control(prompt_string)
 	else:
 		set_type_label(current_prompt)
 
@@ -243,7 +247,7 @@ func set_type_label(prompt: PackedStringArray) -> void:
 	#print(changed_prompt.get(current_index).erase(0, 11))
 	#print(changed_prompt.get(current_index).erase(0, 13))
 	#print(prompt_string.split(" ", 0).get(current_index).erase(0, 17))
-	print(wpm_stored_times)
+	#print(wpm_stored_times)
 
 
 func wpm_calculator(wpm_times_array: Array) -> float:
@@ -294,8 +298,9 @@ func accuracy_calculator(prompt: PackedStringArray) -> float:
 	return accuracy
 
 
-func not_in_control() -> void:
+func not_in_control(prompt_resetter: String) -> void:
 	typing_label.text = "WPM: " + str(snapped(wpm_average, 0.01)) + "\n ACC:  " + str(int(accuracy)) + "%"
+	current_prompt = prompt_resetter.split(" ", 0)
 	underscore_label.visible = false
 	go_back_menu_button.visible = true
 
